@@ -1,0 +1,40 @@
+\section{Motivation}
+
+
+When it comes to the prediction of stable chemical compounds,
+in some sense the problem could be considered deterministic. What
+we mean here is that if we have a measure of the total energy of a 
+system before and after reaction, and that energy decreases we can
+be reasonably certain the new system will form. The challenge then
+is obtaining the total energy of a chemical system.
+
+Because computation of the formation energy can be expensive in
+terms of both time and computation, a surrogate is desirable. Machine
+learning provided the material scientist a suite of methods for
+the development of models.
+
+
+\section{The architecture of the problem}
+
+
+The provided data can be thought of as rows of pairs of elements and
+there corresponding stability vector. The first approach might be to
+envision a single model which could output the entir vector. There 
+are two ways this could be designed if the goal is to use a single model.
+First, a multilayer perceptron neural network can be comstructed with
+10 layers, each of which is responsible for the prediction of a single
+element of the stability vector. This way the resultant output is an
+entire stability vector. The second single model approach capable of
+producing the vector directly would be to use a one-vs-all multiclass
+classification technique. We can picture any given possible stability
+vector as a unit-vector* of 10-dimensional space, of which there are
+10C2 total possible vectors. Each one of these vectors can be thought
+of as a distinct class. Then the problem becomes one of assigning the
+correct class label to a given pair of elements.
+
+The issue with the above solutions is that they ignore our chemical
+intuition. Primarily, they neglect the concept of stoichiometry. As
+material scientist we know that for  abinary compound, elements tend
+to combine in definite ratios. 
+
+Consider approach 
