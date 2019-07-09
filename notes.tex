@@ -19,7 +19,7 @@ the development of models.
 
 The provided data can be thought of as rows of pairs of elements and
 there corresponding stability vector. The first approach might be to
-envision a single model which could output the entir vector. There 
+envision a single model which could output the entire vector. There 
 are two ways this could be designed if the goal is to use a single model.
 First, a multilayer perceptron neural network can be comstructed with
 10 layers, each of which is responsible for the prediction of a single
@@ -27,14 +27,14 @@ element of the stability vector. This way the resultant output is an
 entire stability vector. The second single model approach capable of
 producing the vector directly would be to use a one-vs-all multiclass
 classification technique. We can picture any given possible stability
-vector as a unit-vector* of 10-dimensional space, of which there are
+vector as a vector of 10-dimensional space, of which there are
 10C2 total possible vectors. Each one of these vectors can be thought
 of as a distinct class. Then the problem becomes one of assigning the
 correct class label to a given pair of elements.
 
 The issue with the above solutions is that they ignore our chemical
 intuition. Primarily, they neglect the concept of stoichiometry. As
-material scientist we know that for  abinary compound, elements tend
+material scientist we know that for a binary compound, elements tend
 to combine in definite ratios. 
 
 Consider approach 
