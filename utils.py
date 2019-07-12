@@ -1,6 +1,7 @@
 from pymatgen import Composition
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from sklearn.model_selection import KFold
+from sklearn.utils import resample
 from uuid import uuid1
 import pandas
 import numpy
@@ -64,13 +65,16 @@ def run_k_folds(model, inputs, outputs):
 
     for train, test in KFold(n_splits=10, shuffle=True, random_state=8).split(inputs):
         # Data Preprocessing
+        train = oversample(train, outputs)
         model.fit(inputs[train], outputs[train])
         prediction = model.predict(inputs[test])
         accuracies.append(accuracy_score(outputs[test], prediction))
-        f1s.append(precision_recall_fscore_support(outputs[test], prediction, average='binary'))
+        f1s.append(precision_recall_fscore_support(
+            outputs[test], prediction, average='binary'))
         cnt += 1
 
-    f1_df = pandas.DataFrame(f1s, columns=['precision', 'recall', 'f1', 'support'])
+    f1_df = pandas.DataFrame(
+        f1s, columns=['precision', 'recall', 'f1', 'support'])
     res = Result(model=name,
                  accuracy=numpy.mean(accuracies),
                  accuracy_std=numpy.std(accuracies),
@@ -82,3 +86,13 @@ def run_k_folds(model, inputs, outputs):
                  precision_std=f1_df['precision'].std())
     res.save()
     return res
+
+
+def oversample(train, outputs):
+    unstable = numpy.where(outputs[train] == 0, )[0]
+    stable = numpy.where(outputs[train] == 1)[0]
+    stable_upsampled = resample(stable,
+                              replace=True,
+                              n_samples=len(unstable),
+                              random_state=8)                          
+    return numpy.append(unstable, stable_upsampled)
