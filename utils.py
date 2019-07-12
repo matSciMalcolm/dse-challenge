@@ -65,6 +65,36 @@ def run_k_folds(model, inputs, outputs):
 
     for train, test in KFold(n_splits=10, shuffle=True, random_state=8).split(inputs):
         # Data Preprocessing
+        model.fit(inputs[train], outputs[train])
+        prediction = model.predict(inputs[test])
+        accuracies.append(accuracy_score(outputs[test], prediction))
+        f1s.append(precision_recall_fscore_support(
+            outputs[test], prediction, average='binary'))
+        cnt += 1
+
+    f1_df = pandas.DataFrame(
+        f1s, columns=['precision', 'recall', 'f1', 'support'])
+    res = Result(model=name,
+                 accuracy=numpy.mean(accuracies),
+                 accuracy_std=numpy.std(accuracies),
+                 f1=f1_df['f1'].mean(),
+                 f1_std=f1_df['f1'].std(),
+                 recall=f1_df['recall'].mean(),
+                 recall_std=f1_df['recall'].std(),
+                 precision=f1_df['precision'].mean(),
+                 precision_std=f1_df['precision'].std())
+    res.save()
+    return res
+
+
+def run_k_folds_oversample(model, inputs, outputs):
+    name = type(model).__name__
+    accuracies = []
+    f1s = []
+    cnt = 1
+
+    for train, test in KFold(n_splits=10, shuffle=True, random_state=8).split(inputs):
+        # Data Preprocessing
         train = oversample(train, outputs)
         model.fit(inputs[train], outputs[train])
         prediction = model.predict(inputs[test])
