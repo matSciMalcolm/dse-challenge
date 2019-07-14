@@ -1,24 +1,9 @@
-from pymatgen import Composition
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold, GroupKFold
 from sklearn.utils import resample
 from uuid import uuid1
 import pandas
 import numpy
-
-
-def get_compostion(c):
-    """Attempt to parse composition, return None if failed"""
-
-    try:
-        return Composition(c)
-    except:
-        return None
-
-
-def check_nobility(row):
-    comp = row['composition']
-    return comp.contains_element_type('noble_gas')
 
 
 class Result():
@@ -57,45 +42,18 @@ class Result():
             f.write(f'\nModel precision_std: {self.precision_std}')
 
 
-def run_k_folds(model, inputs, outputs):
+def run_k_folds(model, inputs, outputs, groups, sampling = False, vector = False):
     name = type(model).__name__
     accuracies = []
     f1s = []
     cnt = 1
 
-    for train, test in KFold(n_splits=10, shuffle=True, random_state=8).split(inputs):
+    gkf = GroupKFold(n_splits=10)
+    for train, test in gkf.split(inputs, outputs, groups=groups):
         # Data Preprocessing
-        model.fit(inputs[train], outputs[train])
-        prediction = model.predict(inputs[test])
-        accuracies.append(accuracy_score(outputs[test], prediction))
-        f1s.append(precision_recall_fscore_support(
-            outputs[test], prediction, average='binary'))
-        cnt += 1
-
-    f1_df = pandas.DataFrame(
-        f1s, columns=['precision', 'recall', 'f1', 'support'])
-    res = Result(model=name,
-                 accuracy=numpy.mean(accuracies),
-                 accuracy_std=numpy.std(accuracies),
-                 f1=f1_df['f1'].mean(),
-                 f1_std=f1_df['f1'].std(),
-                 recall=f1_df['recall'].mean(),
-                 recall_std=f1_df['recall'].std(),
-                 precision=f1_df['precision'].mean(),
-                 precision_std=f1_df['precision'].std())
-    res.save()
-    return res
-
-
-def run_k_folds_oversample(model, inputs, outputs):
-    name = type(model).__name__
-    accuracies = []
-    f1s = []
-    cnt = 1
-
-    for train, test in KFold(n_splits=10, shuffle=True, random_state=8).split(inputs):
-        # Data Preprocessing
-        train = oversample(train, outputs)
+        if sampling:
+            train = oversample(train, outputs)
+            
         model.fit(inputs[train], outputs[train])
         prediction = model.predict(inputs[test])
         accuracies.append(accuracy_score(outputs[test], prediction))
