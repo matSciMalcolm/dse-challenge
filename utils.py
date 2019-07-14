@@ -84,3 +84,26 @@ def oversample(train, outputs):
                               n_samples=len(unstable),
                               random_state=8)                          
     return numpy.append(unstable, stable_upsampled)
+
+
+report_column_labels = ['type',
+        'accuracy',
+        'accuracy_std',
+        'f1',
+        'f1_std',
+        'recall',
+        'recall_std',
+        'precision',
+        'precision_std']
+
+
+def compile_data(results):
+    return [[r.model,
+             r.accuracy,
+             r.accuracy_std,
+             r.f1,
+             r.f1_std,
+             r.recall,
+             r.recall_std,
+             r.precision,
+             r.precision_std] for r in results]
