@@ -2,6 +2,7 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from sklearn.model_selection import KFold, GroupKFold
 from sklearn.utils import resample
 from uuid import uuid1
+from collections import Counter
 import pandas
 import numpy
 
@@ -77,13 +78,14 @@ def run_k_folds(model, inputs, outputs, groups, sampling = False, vector = False
 
 
 def oversample(train, outputs):
-    unstable = numpy.where(outputs[train] == 0, )[0]
-    stable = numpy.where(outputs[train] == 1)[0]
-    stable_upsampled = resample(stable,
+    majority_class, minority_class = Counter(outputs[train]).most_common()
+    minority = numpy.where(outputs[train] == minority_class[0])[0]
+    majority = numpy.where(outputs[train] == majority_class[0])[0]
+    minority_upsampled = resample(minority,
                               replace=True,
-                              n_samples=len(unstable),
+                              n_samples=len(majority),
                               random_state=8)                          
-    return numpy.append(unstable, stable_upsampled)
+    return numpy.append(minority, minority_upsampled)
 
 
 report_column_labels = ['type',
