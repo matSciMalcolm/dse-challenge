@@ -13,6 +13,8 @@ class DataManager():
         self.data = None
         self.num_records = None
         self.groups = None
+        self.featurized_data = None
+        self.outputs = None
 
     def load(self):
         self.data = pandas.read_csv(self.load_path)
@@ -25,8 +27,6 @@ class DataManager():
             self.data.reset_index(drop=True, inplace=True)
             self.num_records = len(self.data.index)
 
-    def ramp(self):
-        pass
 
     def get_pymatgen_composition(self):
         if not self.data.empty:
