@@ -1,0 +1,12 @@
+
+Model Type: GaussianNB
+Round Number: 0
+Train Rows: 871
+Model accuracy: 0.7982025279802596
+Model accuracy_std: 0.07166631975121429
+Model f1: 0.4715154882398715
+Model f1_std: 0.09333433711641195
+Model recall: 0.5255741162861906
+Model recall_std: 0.10414667519595278
+Model precision: 0.48953412999852625
+Model precision_std: 0.22505012478180725

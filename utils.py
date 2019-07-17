@@ -98,13 +98,13 @@ def run_k_folds(model, inputs, outputs, groups, sampling=False, ramp=False, vect
 
 def oversample(train, outputs):
     majority_class, minority_class = Counter(outputs[train]).most_common()
-    minority = numpy.where(outputs[train] == minority_class[0])[0]
-    majority = numpy.where(outputs[train] == majority_class[0])[0]
+    minority = train[numpy.where(outputs[train] == minority_class[0])[0]]
+    majority = train[numpy.where(outputs[train] == majority_class[0])[0]]
     minority_upsampled = resample(minority,
                                   replace=True,
                                   n_samples=len(majority),
                                   random_state=8)
-    return numpy.append(minority, minority_upsampled)
+    return numpy.append(majority, minority_upsampled)
 
 
 report_column_labels = ['type',
