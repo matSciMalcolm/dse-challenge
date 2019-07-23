@@ -1,0 +1,10 @@
+
+Model Type: GaussianNB
+Model accuracy: 0.7930476138513022
+Model accuracy_std: 0.08788795416377428
+Model f1: 0.5001355397416327
+Model f1_std: 0.10411756929319159
+Model recall: 0.5083951555690686
+Model recall_std: 0.10885268042981543
+Model precision: 0.561266339869281
+Model precision_std: 0.2571678798906638

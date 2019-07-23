@@ -1,0 +1,12 @@
+
+Model Type: RandomForestClassifier
+Round Number: 2
+Train Rows: 12342
+Model accuracy: 0.914033687885091
+Model accuracy_std: 0.005864864090090407
+Model f1: 0.6068082754652502
+Model f1_std: 0.028785716432797353
+Model recall: 0.4991338626365226
+Model recall_std: 0.026399331581400984
+Model precision: 0.7754057408122799
+Model precision_std: 0.04852970791785877

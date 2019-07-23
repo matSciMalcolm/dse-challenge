@@ -1,0 +1,12 @@
+
+Model Type: LogisticRegression
+Round Number: 2
+Train Rows: 12342
+Model accuracy: 0.8764373781980197
+Model accuracy_std: 0.008019696691982478
+Model f1: 0.3038975068011716
+Model f1_std: 0.027286815260325472
+Model recall: 0.20304795037762197
+Model recall_std: 0.022471008108717324
+Model precision: 0.6174519438212134
+Model precision_std: 0.08353337517700611

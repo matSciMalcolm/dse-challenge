@@ -1,0 +1,1 @@
+Model Type: DummyClassifierModel Accuracy: 0.6584141981613891Model STD: 0.0025214516660389094

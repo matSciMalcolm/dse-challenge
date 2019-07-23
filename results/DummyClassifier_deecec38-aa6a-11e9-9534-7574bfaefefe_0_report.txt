@@ -1,0 +1,12 @@
+
+Model Type: DummyClassifier
+Round Number: 0
+Train Rows: 4114
+Model accuracy: 0.8750643705855952
+Model accuracy_std: 0.011775519551164414
+Model f1: 0.0
+Model f1_std: 0.0
+Model recall: 0.0
+Model recall_std: 0.0
+Model precision: 0.0
+Model precision_std: 0.0

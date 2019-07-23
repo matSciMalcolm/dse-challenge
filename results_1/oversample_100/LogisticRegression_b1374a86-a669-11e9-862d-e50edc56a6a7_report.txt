@@ -1,0 +1,10 @@
+
+Model Type: LogisticRegression
+Model accuracy: 0.854624768667145
+Model accuracy_std: 0.06339553039626102
+Model f1: 0.6323564629019255
+Model f1_std: 0.0989736957653449
+Model recall: 0.7275111988115085
+Model recall_std: 0.14143621936256692
+Model precision: 0.6170933402346446
+Model precision_std: 0.2175576827769509

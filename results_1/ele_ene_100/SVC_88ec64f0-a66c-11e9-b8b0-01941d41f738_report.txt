@@ -1,0 +1,10 @@
+
+Model Type: SVC
+Model accuracy: 0.910398018405912
+Model accuracy_std: 0.02177994511975106
+Model f1: 0.6313635538120663
+Model f1_std: 0.07822822999784751
+Model recall: 0.4656840063960807
+Model recall_std: 0.08514223895059923
+Model precision: 1.0
+Model precision_std: 0.0

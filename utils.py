@@ -50,13 +50,13 @@ class Result():
             f.write(f'\nModel precision_std: {self.precision_std}')
 
 
-def run_k_folds(model, inputs, outputs, groups, sampling=False, ramp=False, vector=False):
+def run_k_folds(model, inputs, outputs, groups, sampling=False, ramp=False, vector=False, splits=5):
     name = type(model).__name__
     results = []
     gkf = GroupKFold(n_splits=10)
 
     if ramp:
-        chunks = [numpy.split(a, 5) for a in (inputs, outputs, groups)]
+        chunks = [numpy.split(a, splits) for a in (inputs, outputs, groups)]
         batchs = [list(accumulate(chunk, stack)) for chunk in chunks]
         rounds = list(map(list, zip(*batchs)))
     else:

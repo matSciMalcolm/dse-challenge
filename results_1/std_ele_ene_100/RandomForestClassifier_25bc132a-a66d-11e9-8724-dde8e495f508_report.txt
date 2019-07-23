@@ -1,0 +1,10 @@
+
+Model Type: RandomForestClassifier
+Model accuracy: 0.9045662272916116
+Model accuracy_std: 0.024163749350708974
+Model f1: 0.6495788882550224
+Model f1_std: 0.06921264368019243
+Model recall: 0.5305787092164802
+Model recall_std: 0.07665590735906612
+Model precision: 0.8536868686868686
+Model precision_std: 0.11356439921068964

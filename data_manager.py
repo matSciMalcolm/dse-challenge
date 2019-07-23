@@ -15,6 +15,15 @@ class DataManager():
         self.groups = None
         self.featurized_data = None
         self.outputs = None
+        self.sto_dict = {"0.1": 1,
+                         "0.2": 1,
+                         "0.3": 1,
+                         "0.4": 2,
+                         "0.5": 1,
+                         "0.6": 3,
+                         "0.7": 2,
+                         "0.8": 4,
+                         "0.9": 9}
 
     def load(self):
         self.data = pandas.read_csv(self.load_path)
@@ -68,7 +77,10 @@ class DataManager():
             for element, col in zip(vec, cols):
                 row[col] = int(element)
             return row
-
+        
+        def _frac_to_sto(frac: float):
+            return sto
+        
         def _row_to_formula(row: pandas.Series):
             w = float(row['weight_fraction_element_b'])
             a = row['formulaA']
@@ -79,10 +91,12 @@ class DataManager():
             elif w == 1.0:
                 return b
             else:
-                wa = 1.0-w
+                wa = round(1.0-w,1)
+                wa = self.sto_dict.get(str(wa), wa)
+                w = self.sto_dict.get(str(w), w)
 
                 def _compute_formula(wa):
-                    return f"{a}{wa:.1f}{b}{w:.1f}"
+                    return f"{a}{wa}{b}{w}"
                 return _compute_formula(wa)
 
         cols = ['{}'.format(i/10) for i in range(11)]
