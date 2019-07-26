@@ -48,6 +48,10 @@ class DataManager():
 
             self.data['composition'] = self.data['formula'].apply(
                 _get_composition)
+            self.data['formulaA'] = self.data['formulaA'].apply(
+                _get_composition)
+            self.data['formulaB'] = self.data['formulaB'].apply(
+                _get_composition)
 
     def remove_noble_gasses(self):
         if not self.data.empty:
@@ -62,7 +66,11 @@ class DataManager():
     def remove_features(self):
         if 'composition' in self.data.columns:
             self.data = self.data[['formula',
-                                   'composition', 'group', 'stable']]
+                                   'formulaA',
+                                   'formulaB',
+                                   'composition',
+                                   'group',
+                                   'stable']]
 
     def compute_formula(self):
         self.data['formula'] = self.data['formulaA'] + self.data['formulaB']
