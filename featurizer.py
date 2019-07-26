@@ -17,18 +17,18 @@ class Featurizer():
                                              "magpie"),
                                          cf.ValenceOrbital(props=['avg']),
                                          cf.IonProperty(fast=True)],
-                            'energy': [cf.CohesiveEnergy(mapi_key=self.mp_api_key)],
+                            'cmpd_energy': [cf.CohesiveEnergy(mapi_key=self.mp_api_key)],
                             'electronegativity': [cf.OxidationStates(),
                                                   cf.ElectronegativityDiff()]}
 
-    def featurize(self, data: pandas.DataFrame) -> pandas.DataFrame:
+    def featurize(self, data: pandas.DataFrame) -> numpy.array:
         impute = False
         if 'electronegtivity' in self.feature_set:
             data = CompositionToOxidComposition(return_original_on_error=True,
                                                 overwrite_data=True).featurize_dataframe(data,
                                                                                          'composition',
                                                                                          ignore_errors=True)
-        if any(c in self.feature_set for c in ('energy', 'electronegativity')):
+        if any(c in self.feature_set for c in ('cmpd_energy', 'electronegativity')):
             impute = True
 
         features = []
