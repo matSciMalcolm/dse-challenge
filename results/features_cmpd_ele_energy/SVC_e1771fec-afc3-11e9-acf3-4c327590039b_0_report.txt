@@ -1,0 +1,12 @@
+
+Model Type: SVC
+Round Number: 0
+Train Rows: 871
+Model accuracy: 0.8581511073731427
+Model accuracy_std: 0.041435807947902824
+Model f1: 0.4278227373554052
+Model f1_std: 0.1102244945196432
+Model recall: 0.33226939726939725
+Model recall_std: 0.12948111788334338
+Model precision: 0.6956349206349206
+Model precision_std: 0.19155750174822836
