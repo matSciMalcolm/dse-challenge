@@ -1,1 +1,0 @@
-Model Type: GaussianNBModel Accuracy: 0.8093590398365679Model STD: 0.0014553531790167567

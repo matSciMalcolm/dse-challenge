@@ -1,1 +1,0 @@
-Model Type: LogisticRegressionModel Accuracy: 0.45632958801498125Model STD: 0.001581907758871947
