@@ -92,7 +92,6 @@ def run_k_folds(model, inputs, outputs, groups, sampling=False, ramp=False, vect
                      precision_std=f1_df['precision'].std())
         res.save()
         results.append(res)
-
     return results
 
 

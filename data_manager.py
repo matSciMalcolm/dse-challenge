@@ -24,6 +24,20 @@ class DataManager():
                          "0.7": 2,
                          "0.8": 4,
                          "0.9": 9}
+        self.formula_index = ["{a}",
+                              "{a}9{b}1",
+                              "{a}4{b}1",
+                              "{a}2{b}1",
+                              "{a}3{b}2",
+                              "{a}1{b}1",
+                              "{a}2{b}3",
+                              "{a}1{b}2",
+                              "{a}1{b}4",
+                              "{a}1{b}9",
+                              "{a}",
+                              "system",
+                              "formulaA",
+                              "formulaB"]
 
     def load(self):
         self.data = pandas.read_csv(self.load_path)
@@ -119,3 +133,32 @@ class DataManager():
             id_vars=original_cols, var_name='weight_fraction_element_b', value_name='stable')
         self.data['formula'] = self.data.apply(_row_to_formula, axis=1)
         self.data = self.data.drop_duplicates('formula')
+        
+    def convert_inputs(self):
+        
+        def _convert(row):
+            a = row['formulaA']
+            b = row['formulaB']
+            system = a+b
+            _formula_templates = [f"{a}",
+                                  f"{a}9{b}1",
+                                  f"{a}4{b}1",
+                                  f"{a}2{b}1",
+                                  f"{a}3{b}2",
+                                  f"{a}1{b}1",
+                                  f"{a}2{b}3",
+                                  f"{a}1{b}2",
+                                  f"{a}1{b}4",
+                                  f"{a}1{b}9",
+                                  f"{b}",
+                                  system,
+                                  f"{a}",
+                                  f"{b}",]
+
+            formulas = pandas.Series(_formula_templates, index=self.formula_index)
+            return(formulas)
+        
+        self.data = self.data.apply(_convert,
+                                    axis=1,
+                                    result_type='expand').melt(id_vars=['system', 'formulaA', 'formulaB'], value_name="formula").drop(['variable'], axis=1)
+
