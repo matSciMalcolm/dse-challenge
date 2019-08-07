@@ -126,6 +126,9 @@ dmypy.json
 # Mac icons
 Icon
 Icon^M^M
+.DS_store
+icon
+icon^M^M
 
 # MP API Key
 mp_api_key.txt
