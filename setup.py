@@ -16,11 +16,14 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
 
-        
+
         "Operating System :: OS Independent",],
     install_requires=[
         "scikit-learn>=0.20.3",
         "numpy>=1.16.2",
         "pandas>=0.24.2",
         "matminer>=0.5.8",
-        "pymatgen>=2019.6.20"])
+        "pymatgen>=2019.6.20",
+        "plotly>=3.10.0",
+        "mendeleev>=0.4.5",
+        "matplotlib>=3.0.3"])
