@@ -126,7 +126,7 @@ dmypy.json
 # Mac icons
 Icon
 Icon^M^M
-.DS_store
+.DS_Store
 icon
 icon^M^M
 
