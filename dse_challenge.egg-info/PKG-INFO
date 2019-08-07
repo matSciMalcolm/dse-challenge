@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: dse-challenge
+Version: 0.0.1
+Summary: Notebooks to predict the stability of binary chemical compounds.
+Home-page: https://github.com/matSciMalcolm/dse-challenge
+Author: Malcolm Davidson
+Author-email: mdavidson@citrine.io
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown

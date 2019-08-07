@@ -1,5 +1,6 @@
 #### Standard Libraries ####
 import typing
+from typing import List
 from pprint import pprint
 from functools import partial
 
@@ -19,18 +20,21 @@ class DataManager():
     load_path {str} -- [The path to the training data]
     save_path {str} -- [The path to save data]
     data {pandas.DataFrame} -- [Unfeaturized data]
+    original_data {pandas.DataFrame} -- [Data as loaded from file]
     num_records {int} -- [The number of data poinds]
     groups {numpy.array} -- [The group id's for chemical systems.
     Used during cross validation]
     featurized_data {numpy.array}} -- [Stores an array of featurized data when
     used with a featurizer]
     outputs {pandas.Series} -- [The output labels for data]
+    labeled_data {pandas.DataFrame} -- [Test data labeled with stability vectors]
 
     Methods
     -------
     load() -- [Read in data from a csv]
     sample_data(sample_size=1000) -- [Convert data to a random sample of the 
     total data]
+    loads(elements: list) -- [Read in data from a list of elements]
     get_pymatgen_composition() -- [Add a 'composition' column to data 
     consisting of pymatgen composition objects]
     remove_noble_gasses() -- [Remove any noble gasses from composition]
@@ -42,9 +46,11 @@ class DataManager():
     representation in place of a stability vector]
     convert_inputs() -- [Convert test data to systems of integer chemical
     formulas corresponding to elements of the stability vector]
+    validate_data() -- [Check if the input columns Formula A and B have valid
+    elements]
     """
 
-    def __init__(self, load_path: str, save_path: str):
+    def __init__(self, load_path: str=None, save_path: str=None):
         """
         Arguments:
             load_path {str} -- [The path to the training data]
@@ -53,10 +59,12 @@ class DataManager():
         self.load_path = load_path
         self.save_path = save_path
         self.data = None
+        self.original_data = None
         self.num_records = None
         self.groups = None
         self.featurized_data = None
         self.outputs = None
+        self.labeled_data = None
         self.sto_dict = {"0.1": 1,
                          "0.2": 1,
                          "0.3": 1,
@@ -86,12 +94,21 @@ class DataManager():
         """
 
         self.data = pandas.read_csv(self.load_path)
+        self.original_data = self.data
         self.num_records = len(self.data.index)
         pprint(f"Loaded {self.num_records} records.")
 
+    def loads(self, elements: List):
+        """[Read in data from a tuple]
+        """
+        
+        self.data = pandas.DataFrame(elements, columns=['formulaA', 'formulaB'])
+        self.original_data = self.data
+        self.num_records = len(self.data.index)
+
     def sample_data(self, sample_size: int = 1000):
         """[Convert data to a random sample of the total data]
-        
+
         Keyword Arguments:
             sample_size {int} -- [The number of records to 
             randomly chose] (default: {1000})
@@ -231,3 +248,25 @@ class DataManager():
                                     result_type='expand').\
             melt(id_vars=['system', 'formulaA', 'formulaB'],
                  value_name="formula").drop(['variable'], axis=1)
+
+    def validate_data(self):
+        """[Check if the input columns Formula A and B have valid elements]
+        """
+        # Validate data - move to data manager
+        test_col_1 = self.data.iloc[:, 0].apply(lambda x: Composition(x).valid)
+        test_col_2 = self.data.iloc[:, 1].apply(lambda x: Composition(x).valid)
+        if not all(test_col_1) or not all(test_col_2):
+            pprint("Invalid element in data")
+        else:
+            pprint("All input elements are valid")
+
+    def binary_to_vec(self):
+        """[Converts predicted binary labels into a stability vector]
+        """
+
+        def _binary_to_vec(df: pandas.DataFrame):
+            return df.tolist()
+
+        self.labeled_data = self.original_data
+        self.labeled_data['stabilityVec'] = self.data.groupby('system')\
+            .agg(_binary_to_vec)['stable'].values

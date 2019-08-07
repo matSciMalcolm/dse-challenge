@@ -11,10 +11,12 @@ setuptools.setup(
     description="Notebooks to predict the stability of binary chemical compounds.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/matSciMalcolm/dse-challenge",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
+
+        
         "Operating System :: OS Independent",],
     install_requires=[
         "scikit-learn>=0.20.3",

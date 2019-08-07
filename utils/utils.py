@@ -1,5 +1,7 @@
 #### Standard Libraries ####
 import typing
+import os
+from typing import List
 from itertools import accumulate
 from uuid import uuid1
 from collections import Counter
@@ -93,8 +95,9 @@ class Result():
     def save(self):
         """[Save the results of a k-folds evaluation to a file]
         """
-        with open(f'results/{self.model}_{self.uid}_{self.round_num}_report.txt',
-                  'w+') as f:
+        path = os.path.join('..', 'results',
+                            f'{self.model}_{self.uid}_{self.round_num}_report.txt')
+        with open(path, 'w+') as f:
             f.write(f'\nModel Type: {self.model}')
             f.write(f'\nRound Number: {self.round_num}')
             f.write(f'\nTrain Rows: {self.data_size}')

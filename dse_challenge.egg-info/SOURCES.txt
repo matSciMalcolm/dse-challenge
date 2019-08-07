@@ -1,0 +1,10 @@
+setup.py
+dse_challenge.egg-info/PKG-INFO
+dse_challenge.egg-info/SOURCES.txt
+dse_challenge.egg-info/dependency_links.txt
+dse_challenge.egg-info/requires.txt
+dse_challenge.egg-info/top_level.txt
+utils/__init__.py
+utils/data_manager.py
+utils/featurizer.py
+utils/utils.py
