@@ -1,5 +1,5 @@
-# dse-challenge
-This repository contains Code for the Citrine Informatice data solutions engineer challenge. The goal of this challenge is to predict the stability vector of a system of two elements. In order to achieve this I have transformed the training data into a binary classification scheme to better transfer the complexity of the output to the input. 
+# Material Predictions
+This repository contains Code for my submission to the Citrine Informatice data solutions engineer challenge. The goal of this challenge is to predict the stability vector of a system of two elements. In order to achieve this I have transformed the training data into a binary classification scheme to better transfer the complexity of the output to the input. 
 
 ## How to use this repository
 1. Install requirments with `pip install -r requirements.txt`, for best results start with a new anaconda python 3 environement
